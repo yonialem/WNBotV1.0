@@ -23,10 +23,10 @@ else if(message.text=="/movieshop"){
         +"2,"+" Trios Movies Gotera - Condimiinium\n"
         +"3,"+" Mohambi Movies - Bole\n"
     );}
-else if(message.text=="ADMINSHUTDOWNYOON") {
+else if(message.text=="WNADMINSHUTDOWNyoo") {
     telegram.sendMessage(message.chat.id,"Quitting System");
 
-    timeout(1000);
+   // timeout(1000);
     process.exit(1);}
   else  telegram.sendMessage(message.chat.id,"I Couldnt Understand\nwhat uve said ..\n"
     +"What u've said was : \n"
