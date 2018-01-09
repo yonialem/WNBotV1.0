@@ -23,7 +23,7 @@ else if(message.text=="/movieshop"){
         +"2,"+" Trios Movies Gotera - Condimiinium\n"
         +"3,"+" Mohambi Movies - Bole\n"
     );}
-else if(message.text=="WNADMINSHUTDOWNyoo") {
+else if(message.text=="WNADMINSHUTDOWNyon") {
     telegram.sendMessage(message.chat.id,"Quitting System");
 
    // timeout(1000);
