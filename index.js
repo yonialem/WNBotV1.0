@@ -28,9 +28,7 @@ else if(message.text=="WNADMINSHUTDOWNyoo") {
 
    // timeout(1000);
     process.exit(1);}
-  else  telegram.sendMessage(message.chat.id,"I Couldnt Understand\nwhat uve said ..\n"
-    +"What u've said was : \n"
-    +message.text
+  else  telegram.sendMessage(message.chat.id,""+message.text+" Yourself"
     );
 });
 
