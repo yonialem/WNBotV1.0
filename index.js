@@ -1,12 +1,18 @@
 var TelegramBot = require('node-telegram-bot-api'),
      telegram = new TelegramBot("391450427:AAGYnOAKjV72Hyi_lA2sv0OL7SxNP4S1-Eo", { polling: true });
 var stat=true;
+var  longlog="";
+var logging=false;
+var loglist=new Array("System Summary : ",".............","Sender.....Message",".............");
+function addtolist(element) {
+    longlog=longlog+"\n"+element;
+}
 function showadminhint() {
-
+    telegram.sendMessage(314378396, " Hello Admin !" );
     telegram.sendMessage(314378396, " Here are custom command lists\n"
-        +"bstat on/off to turn bot on or off"
-        +"ansnd id,message to send anonymous messages"
-        +"More commands comming soon ...."
+        +"-> bstat on/off to turn bot on or off\n"
+        +"-> ansnd id,message to send anonymous messages\n"
+        +"-> More commands comming soon ....\n"
     );
 
 }
@@ -15,7 +21,7 @@ telegram.on("text", (message) => {
 
     if(message.chat.id == 314378396)
 {
-    telegram.sendMessage(314378396, " Hello Admin !" );
+
 
     var msg,cmd, act;
     msg=message.text;
@@ -24,6 +30,7 @@ telegram.on("text", (message) => {
     switch(cmd)
     {
         case "bstat":
+            telegram.sendMessage(314378396, " Hello Admin , Your command is being Processed !\n" );
             if(act=="on") {stat=true;
                 telegram.sendMessage(314378396, "BOt Turned On" );
             }
@@ -33,9 +40,26 @@ telegram.on("text", (message) => {
             else showadminhint();
             break;
         case "ansnd" :
+            telegram.sendMessage(314378396, " Hello Admin , Your command is being Processed !\n" );
+
             var clid=act.substring(0,10);
             var mssg=act.substring(10)
             telegram.sendMessage(clid, mssg );
+            break;
+        case "lging":
+            
+            if(act=="on") {logging=true;
+                telegram.sendMessage(314378396, "Continious LOGGING Turned On" );
+            }
+            else if(act=="off") {logging =false;
+                telegram.sendMessage(314378396, "Continious LOGGING Turned Off" );
+                loglist.forEach(addtolist);
+                telegram.sendMessage(314378396, "Log till now is :" );
+                telegram.sendMessage(314378396, longlog );
+                loglist=new Array("System Summary : ",".............","Sender.....Message",".............");
+
+            }
+            else showadminhint();
             break;
         default :
             showadminhint();
@@ -45,7 +69,9 @@ telegram.on("text", (message) => {
 }
 else{
       if(stat==true) {
-          telegram.sendMessage(314378396, "" + message.chat.id + " Said " + message.text);
+          if(logging)telegram.sendMessage(314378396, "" + message.chat.id + " Said " + message.text);
+          else loglist.push(""+message.chat.id + " Said " + message.text+"");
+
           if (message.text == "/start") {
               telegram.sendMessage(message.chat.id, "Hello Visitor\nThis is the official bot of watch now\n"
                   + "You can get updated movie lists right on your hands\n"
