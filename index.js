@@ -27,7 +27,7 @@ telegram.on("text", (message) => {
     var msg,cmd, act;
     msg=message.text;
     cmd=msg.substring(0,5);
-    act=msg.substring(4);
+    act=msg.substring(5);
     switch(cmd)
     {
         case "bstat":
