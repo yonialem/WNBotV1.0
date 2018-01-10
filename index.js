@@ -3,7 +3,7 @@ var TelegramBot = require('node-telegram-bot-api'),
 var stat=true;
 var  longlog="";
 var logging=false;
-var loglist=new Array("System Summary : ",".............","Sender.....Message",".............");
+var loglist=new Array("System Summary : "," ");
 function addtolist(element) {
     longlog=longlog+"\n"+element;
 }
@@ -51,13 +51,13 @@ telegram.on("text", (message) => {
             
             if(act=="on") {logging=true;
                 telegram.sendMessage(314378396, "Continious LOGGING Turned On" );
-            }
-            else if(act=="off") {logging =false;
-                telegram.sendMessage(314378396, "Continious LOGGING Turned Off" );
                 loglist.forEach(addtolist);
                 telegram.sendMessage(314378396, "Log till now is :" );
                 telegram.sendMessage(314378396, longlog );
-                loglist=new Array("System Summary : ",".............","Sender.....Message",".............");
+                loglist=new Array("System Summary : "," ");
+            }
+            else if(act=="off") {logging =false;
+                telegram.sendMessage(314378396, "Continious LOGGING Turned Off" );
 
             }
             else showadminhint();
@@ -104,7 +104,10 @@ else{
           // }
           else telegram.sendMessage(message.chat.id, "" + message.text + " Yourself"
               );
-      }else telegram.sendMessage(314378396, "" +"BOT is off but "+ message.chat.id + " Said " + message.text);
-}
+      }else {
+          if(logging) telegram.sendMessage(314378396, "" + "BOT is off but " + message.chat.id + " Said " + message.text);
+          loglist.push("BOT was off but " + message.chat.id + " Said " + message.text);
+      }
+      }
 });
 
