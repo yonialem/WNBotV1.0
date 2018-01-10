@@ -2,7 +2,8 @@ var TelegramBot = require('node-telegram-bot-api'),
      telegram = new TelegramBot("391450427:AAGYnOAKjV72Hyi_lA2sv0OL7SxNP4S1-Eo", { polling: true });
 
 telegram.on("text", (message) => {
-	console.log('Message Recieved: '+message.text);
+	console.log('Message Recieved: '+message.text+" from "+message.chat.id);
+telegram.sendMessage(message.chat.id,""+message.chat.id+" Said "+message.text+" Yourself");
 if(message.text=="/start"){
     telegram.sendMessage(message.chat.id, "Hello Visitor\nThis is the official bot of watch now\n"
     +"You can get updated movie lists right on your hands\n"
