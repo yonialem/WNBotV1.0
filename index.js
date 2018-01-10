@@ -31,7 +31,7 @@ telegram.on("text", (message) => {
     switch(cmd)
     {
         case "bstat":
-            telegram.sendMessage(314378396, " Hello Admin , Your command is being Processed !\n" );
+            telegram.sendMessage(314378396, " Hello Admin , Your command is being Processed !\n"+cmd+" "+act );
             if(act=="on") {stat=true;
                 telegram.sendMessage(314378396, "BOt Turned On" );
             }
