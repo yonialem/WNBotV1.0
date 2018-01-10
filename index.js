@@ -12,6 +12,7 @@ function showadminhint() {
     telegram.sendMessage(314378396, " Here are custom command lists\n"
         +"-> bstat on/off to turn bot on or off\n"
         +"-> ansnd id,message to send anonymous messages\n"
+        +"-> lging on/off to turn bot on or off\n"
         +"-> More commands comming soon ....\n"
     );
 
