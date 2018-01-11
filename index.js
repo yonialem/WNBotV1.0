@@ -1,11 +1,14 @@
 var TelegramBot = require('node-telegram-bot-api'),
-     telegram = new TelegramBot("391450427:AAGYnOAKjV72Hyi_lA2sv0OL7SxNP4S1-Eo", { polling: true });
+    telegram = new TelegramBot("391450427:AAGYnOAKjV72Hyi_lA2sv0OL7SxNP4S1-Eo", { polling: true });
 var stat=true;
 var  longlog="";
-var logging=false;
+var logging=true;
 var loglist=new Array("System Summary : "," ");
 function addtolist(element) {
     longlog=longlog+"\n"+element;
+}
+function sendimages(element) {
+    telegram.sendPhoto(314378396,element,{caption: 'Prof pics'});
 }
 function showadminhint() {
     telegram.sendMessage(314378396, " Hello Admin !" );
@@ -17,12 +20,19 @@ function showadminhint() {
     );
 
 }
+
 telegram.on("text", (message) => {
     //console.log('Message Recieved: '+message.text+" from "+message.chat.id);
 
+
+
     if(message.chat.id == 314378396)
 {
-
+    //var ll=new Array();
+    //telegram.getUserProfilePhotos(message.chat.id);
+    //sendimages(ll[0]);
+    console.log(message.chat.username+"Images recieved");
+    //ll.forEach(sendimages);
 
     var msg,cmd, act;
     msg=message.text;
@@ -48,15 +58,17 @@ telegram.on("text", (message) => {
             telegram.sendMessage(clid, mssg );
             break;
         case "lging":
-            
+
             if(act=="on") {logging=true;
                 telegram.sendMessage(314378396, "Continious LOGGING Turned On" );
                 loglist.forEach(addtolist);
                 telegram.sendMessage(314378396, "Log till now is :" );
                 telegram.sendMessage(314378396, longlog );
+                loglist=null;
                 loglist=new Array("System Summary : "," ");
             }
             else if(act=="off") {logging =false;
+
                 telegram.sendMessage(314378396, "Continious LOGGING Turned Off" );
 
             }
@@ -69,45 +81,63 @@ telegram.on("text", (message) => {
 
 }
 else{
-      if(stat==true) {
-          if(logging)telegram.sendMessage(314378396, "" + message.chat.id + " Said " + message.text);
-          else loglist.push(""+message.chat.id + " Said " + message.text+"");
+    if(stat==true) {
+        if(logging) {
+            if (typeof message.chat.username !== 'undefined' && chat.username !== null) {
+                console.log("is null");
+                telegram.sendMessage(314378396, "@" + message.chat.username + " Said " + message.text);
+            }else
+                telegram.sendMessage(314378396, "" + message.chat.id + " Said " + message.text);
+        }
+        else {
+            if (typeof message.chat.username !== 'undefined' && chat.username !== null) {
+                console.log("is null")
+                loglist.push("@" + message.chat.username + " Said " + message.text + "");
+            }else
+                loglist.push("" + message.chat.id + " Said " + message.text + "");
+        }
+        if (message.text == "/start") {
+            telegram.sendMessage(message.chat.id, "Hello Visitor\nThis is the official bot of watch now\n"
+                + "You can get updated movie lists right on your hands\n"
+                + "Use our custom commands to navigate\n"
+                + "Enjoy your time !!"
+            );
+        }
+        else if (message.text == "/boxoffice") {
+            telegram.sendMessage(message.chat.id, "Todays Top 5 box office movies are :\n"
+                + "1," + " Gone With the wind\n"
+                + "2," + " I am Legend\n"
+                + "3," + " I Robot\n"
+                + "4," + " Tkur Fkr\n"
+                + "5," + " Elmon Ewedewalew\n"
+            );
+        }
+        else if (message.text == "/movieshop") {
+            telegram.sendMessage(message.chat.id, "Available Movie Shops are :\n"
+                + "1," + " Jossy Movies 22 - Mazoria\n"
+                + "2," + " Trios Movies Gotera - Condimiinium\n"
+                + "3," + " Mohambi Movies - Bole\n"
+            );
+        }
+        // else if (message.text == "WNADMINSHUTDOWNyon") {
+        //     telegram.sendMessage(message.chat.id, "Quitting System");
+        //
+        //     // timeout(1000);
+        //     process.exit(1);
+        // }
+        else telegram.sendMessage(message.chat.id, "" + message.text + " Yourself"
+            );
+    }else {
+        if(logging) {
+            if (typeof message.chat.username !== 'undefined' && chat.username !== null) telegram.sendMessage(314378396, "" + "BOT is off but " +"@" + message.chat.username + " Said " + message.text);
+            else telegram.sendMessage(314378396, "" + "BOT is off but " + message.chat.id + " Said " + message.text);
+        }
+        else {
+            if (typeof message.chat.username !== 'undefined' && chat.username !== null) loglist.push( "BOT wass off but " +"@" +  message.chat.username + " Said " + message.text + "");
+            else loglist.push("BOT was off but " + message.chat.id + " Said " + message.text);
+        }
 
-          if (message.text == "/start") {
-              telegram.sendMessage(message.chat.id, "Hello Visitor\nThis is the official bot of watch now\n"
-                  + "You can get updated movie lists right on your hands\n"
-                  + "Use our custom commands to navigate\n"
-                  + "Enjoy your time !!"
-              );
-          }
-          else if (message.text == "/boxoffice") {
-              telegram.sendMessage(message.chat.id, "Todays Top 5 box office movies are :\n"
-                  + "1," + " Gone With the wind\n"
-                  + "2," + " I am Legend\n"
-                  + "3," + " I Robot\n"
-                  + "4," + " Tkur Fkr\n"
-                  + "5," + " Elmon Ewedewalew\n"
-              );
-          }
-          else if (message.text == "/movieshop") {
-              telegram.sendMessage(message.chat.id, "Available Movie Shops are :\n"
-                  + "1," + " Jossy Movies 22 - Mazoria\n"
-                  + "2," + " Trios Movies Gotera - Condimiinium\n"
-                  + "3," + " Mohambi Movies - Bole\n"
-              );
-          }
-          // else if (message.text == "WNADMINSHUTDOWNyon") {
-          //     telegram.sendMessage(message.chat.id, "Quitting System");
-          //
-          //     // timeout(1000);
-          //     process.exit(1);
-          // }
-          else telegram.sendMessage(message.chat.id, "" + message.text + " Yourself"
-              );
-      }else {
-          if(logging) telegram.sendMessage(314378396, "" + "BOT is off but " + message.chat.id + " Said " + message.text);
-          loglist.push("BOT was off but " + message.chat.id + " Said " + message.text);
-      }
-      }
+    }
+}
 });
 
