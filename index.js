@@ -1,5 +1,11 @@
-var TelegramBot = require('node-telegram-bot-api'),
-    telegram = new TelegramBot("391450427:AAGYnOAKjV72Hyi_lA2sv0OL7SxNP4S1-Eo", { polling: true });
+var TelegramBot = require('node-telegram-bot-api')
+var token=null
+var prompt = require('prompt-sync')();
+token= prompt('Enter your Bot Token : ');
+
+console.log("Bot Token is : "+token)
+//391450427:AAGYnOAKjV72Hyi_lA2sv0OL7SxNP4S1-Eo
+var telegram = new TelegramBot(token, { polling: true });
 var stat=true;
 var  longlog="";
 var logging=false;
@@ -31,7 +37,7 @@ telegram.on("text", (message) => {
     //var ll=new Array();
     //telegram.getUserProfilePhotos(message.chat.id);
     //sendimages(ll[0]);
-    console.log(message.chat.username+"Images recieved");
+   // console.log(message.chat.username+"Images recieved");
     //ll.forEach(sendimages);
 
     var msg,cmd, act;
