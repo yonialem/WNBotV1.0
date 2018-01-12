@@ -1,11 +1,7 @@
 var TelegramBot = require('node-telegram-bot-api')
-var token=null
-var prompt = require('prompt-sync')();
-token= prompt('Enter your Bot Token : ');
-
-console.log("Bot Token is : "+token)
+require('dotenv').config()
 //391450427:AAGYnOAKjV72Hyi_lA2sv0OL7SxNP4S1-Eo
-var telegram = new TelegramBot(token, { polling: true });
+var telegram = new TelegramBot(process.env.token, { polling: true });
 var stat=true;
 var  longlog="";
 var logging=false;
