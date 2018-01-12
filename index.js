@@ -1,6 +1,6 @@
 var TelegramBot = require('node-telegram-bot-api')
 require('dotenv').config()
-//391450427:AAGYnOAKjV72Hyi_lA2sv0OL7SxNP4S1-Eo
+
 var telegram = new TelegramBot(process.env.token, { polling: true });
 var stat=true;
 var  longlog="";
@@ -10,11 +10,11 @@ function addtolist(element) {
     longlog=longlog+"\n"+element;
 }
 function sendimages(element) {
-    telegram.sendPhoto(314378396,element,{caption: 'Prof pics'});
+    telegram.sendPhoto(process.env.myid,element,{caption: 'Prof pics'});
 }
 function showadminhint() {
-    telegram.sendMessage(314378396, " Hello Admin !" );
-    telegram.sendMessage(314378396, " Here are custom command lists\n"
+    telegram.sendMessage(process.env.myid, " Hello Admin !" );
+    telegram.sendMessage(process.env.myid, " Here are custom command lists\n"
         +"-> bstat on/off to turn bot on or off\n"
         +"-> ansnd id,message to send anonymous messages\n"
         +"-> lging on/off to turn bot on or off\n"
@@ -28,12 +28,12 @@ telegram.on("text", (message) => {
 
 
 
-    if(message.chat.id == 314378396)
+    if(message.chat.id == process.env.myid)
 {
     //var ll=new Array();
     //telegram.getUserProfilePhotos(message.chat.id);
     //sendimages(ll[0]);
-   // console.log(message.chat.username+"Images recieved");
+    // console.log(message.chat.username+"Images recieved");
     //ll.forEach(sendimages);
 
     var msg,cmd, act;
@@ -43,17 +43,17 @@ telegram.on("text", (message) => {
     switch(cmd)
     {
         case "bstat":
-            telegram.sendMessage(314378396, " Hello Admin , Your command is being Processed !\n"+cmd+" "+act );
+            telegram.sendMessage(process.env.myid, " Hello Admin , Your command is being Processed !\n"+cmd+" "+act );
             if(act=="on") {stat=true;
-                telegram.sendMessage(314378396, "BOt Turned On" );
+                telegram.sendMessage(process.env.myid, "BOt Turned On" );
             }
             else if(act=="off") {stat =false;
-                telegram.sendMessage(314378396, "Bot Turned Off" );
+                telegram.sendMessage(process.env.myid, "Bot Turned Off" );
             }
             else showadminhint();
             break;
         case "ansnd" :
-            telegram.sendMessage(314378396, " Hello Admin , Your command is being Processed !\n" );
+            telegram.sendMessage(process.env.myid, " Hello Admin , Your command is being Processed !\n" );
 
             var clid=act.substring(0,10);
             var mssg=act.substring(10)
@@ -62,16 +62,16 @@ telegram.on("text", (message) => {
         case "lging":
 
             if(act=="on") {logging=true;
-                telegram.sendMessage(314378396, "Continious LOGGING Turned On" );
+                telegram.sendMessage(process.env.myid, "Continious LOGGING Turned On" );
                 loglist.forEach(addtolist);
-                telegram.sendMessage(314378396, "Log till now is :" );
-                telegram.sendMessage(314378396, longlog );
+                telegram.sendMessage(process.env.myid, "Log till now is :" );
+                telegram.sendMessage(process.env.myid, longlog );
                 loglist=null;
                 loglist=new Array("System Summary : "," ");
             }
             else if(act=="off") {logging =false;
 
-                telegram.sendMessage(314378396, "Continious LOGGING Turned Off" );
+                telegram.sendMessage(process.env.myid, "Continious LOGGING Turned Off" );
 
             }
             else showadminhint();
@@ -86,10 +86,10 @@ else{
     if(stat==true) {
         if(logging) {
             if (typeof message.chat.username !== 'undefined' && chat.username !== null) {
-               // console.log("is null");
-                telegram.sendMessage(314378396, "@" + message.chat.username + " Said " + message.text);
+                // console.log("is null");
+                telegram.sendMessage(process.env.myid, "@" + message.chat.username + " Said " + message.text);
             }else
-                telegram.sendMessage(314378396, "" + message.chat.id + " Said " + message.text);
+                telegram.sendMessage(process.env.myid, "" + message.chat.id + " Said " + message.text);
         }
         else {
             if (typeof message.chat.username !== 'undefined' && chat.username !== null) {
@@ -131,8 +131,8 @@ else{
             );
     }else {
         if(logging) {
-            if (typeof message.chat.username !== 'undefined' && chat.username !== null) telegram.sendMessage(314378396, "" + "BOT is off but " +"@" + message.chat.username + " Said " + message.text);
-            else telegram.sendMessage(314378396, "" + "BOT is off but " + message.chat.id + " Said " + message.text);
+            if (typeof message.chat.username !== 'undefined' && chat.username !== null) telegram.sendMessage(process.env.myid, "" + "BOT is off but " +"@" + message.chat.username + " Said " + message.text);
+            else telegram.sendMessage(process.env.myid, "" + "BOT is off but " + message.chat.id + " Said " + message.text);
         }
         else {
             if (typeof message.chat.username !== 'undefined' && chat.username !== null) loglist.push( "BOT wass off but " +"@" +  message.chat.username + " Said " + message.text + "");
