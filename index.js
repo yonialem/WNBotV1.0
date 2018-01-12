@@ -92,14 +92,14 @@ telegram.on("text", (message) => {
 else{
     if(stat==true) {
         if(logging) {
-            if (typeof message.chat.username !== 'undefined' && chat.username !== null) {
+            if (typeof message.chat.username !== 'undefined' && message.chat.username !== null) {
                 // console.log("is null");
                 telegram.sendMessage(process.env.myid, "@" + message.chat.username + " Said " + message.text);
             }else
                 telegram.sendMessage(process.env.myid, "" + message.chat.id + " Said " + message.text);
         }
         else {
-            if (typeof message.chat.username !== 'undefined' && chat.username !== null) {
+            if (typeof message.chat.username !== 'undefined' && message.chat.username !== null) {
                 //console.log("is null")
                 loglist.push("@" + message.chat.username + " Said " + message.text + "");
             }else
@@ -138,11 +138,11 @@ else{
             );
     }else {
         if(logging) {
-            if (typeof message.chat.username !== 'undefined' && chat.username !== null) telegram.sendMessage(process.env.myid, "" + "BOT is off but " +"@" + message.chat.username + " Said " + message.text);
+            if (typeof message.chat.username !== 'undefined' && message.chat.username !== null) telegram.sendMessage(process.env.myid, "" + "BOT is off but " +"@" + message.chat.username + " Said " + message.text);
             else telegram.sendMessage(process.env.myid, "" + "BOT is off but " + message.chat.id + " Said " + message.text);
         }
         else {
-            if (typeof message.chat.username !== 'undefined' && chat.username !== null) loglist.push( "BOT wass off but " +"@" +  message.chat.username + " Said " + message.text + "");
+            if (typeof message.chat.username !== 'undefined' && message.chat.username !== null) loglist.push( "BOT wass off but " +"@" +  message.chat.username + " Said " + message.text + "");
             else loglist.push("BOT was off but " + message.chat.id + " Said " + message.text);
         }
 
