@@ -1,11 +1,18 @@
 var TelegramBot = require('node-telegram-bot-api')
 require('dotenv').config()
+var x=null,y=null;
+x=process.env.token
+y=process.env.myid
+console.log("Tkn : "+x+"\nID : "+y)
+//if(x==null || y==null) process.exit(1);
+
 
 var telegram = new TelegramBot(process.env.token, { polling: true });
 var stat=true;
 var  longlog="";
 var logging=false;
 var loglist=new Array("System Summary : "," ");
+
 function addtolist(element) {
     longlog=longlog+"\n"+element;
 }
@@ -125,7 +132,7 @@ else{
         //     telegram.sendMessage(message.chat.id, "Quitting System");
         //
         //     // timeout(1000);
-        //     process.exit(1);
+        //
         // }
         else telegram.sendMessage(message.chat.id, "" + message.text + " Yourself"
             );
