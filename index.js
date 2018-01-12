@@ -2,7 +2,7 @@ var TelegramBot = require('node-telegram-bot-api'),
     telegram = new TelegramBot("391450427:AAGYnOAKjV72Hyi_lA2sv0OL7SxNP4S1-Eo", { polling: true });
 var stat=true;
 var  longlog="";
-var logging=true;
+var logging=false;
 var loglist=new Array("System Summary : "," ");
 function addtolist(element) {
     longlog=longlog+"\n"+element;
@@ -84,14 +84,14 @@ else{
     if(stat==true) {
         if(logging) {
             if (typeof message.chat.username !== 'undefined' && chat.username !== null) {
-                console.log("is null");
+               // console.log("is null");
                 telegram.sendMessage(314378396, "@" + message.chat.username + " Said " + message.text);
             }else
                 telegram.sendMessage(314378396, "" + message.chat.id + " Said " + message.text);
         }
         else {
             if (typeof message.chat.username !== 'undefined' && chat.username !== null) {
-                console.log("is null")
+                //console.log("is null")
                 loglist.push("@" + message.chat.username + " Said " + message.text + "");
             }else
                 loglist.push("" + message.chat.id + " Said " + message.text + "");
